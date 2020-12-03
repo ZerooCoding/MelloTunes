@@ -5,7 +5,7 @@ const sendError = require("../util/error")
 
 module.exports.run = async (client, message, args) => {
 
-if(message.author.id === '709450665696428124') {
+if(message.author.id === '709450665696428124') { //Replace '709450665696428124' with your id
     let commandName = args[0].toLowerCase()
     try {
         delete require.cache[require.resolve(`./${commandName}.js`)]
@@ -17,7 +17,7 @@ if(message.author.id === '709450665696428124') {
     }
     message.channel.send(`✔️\`${args[0].toUpperCase()}\` Command has been reloaded!`)
 } else {
-sendError(`Only RT and Mezo can use this command.`)
+sendError(`You cannot use this command.`)
 }
         
 	}
