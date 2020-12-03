@@ -1,8 +1,9 @@
 require("dotenv").config();//Loading .env
 const fs = require("fs");
 Discord.Constants.DefaultOptions.ws.properties.$browser = "Discord Android" //Make it show that the bot is on mobile
-const { Collection,
-       Client } = require("discord.js");
+const { Collection, 
+       Client 
+      } = require("discord.js");
 const prefix = require('./util/prefix');
 
 const client = new Client();//Making a discord bot client
