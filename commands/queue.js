@@ -4,16 +4,12 @@ const {
 const sendError = require("../util/error");
 
 module.exports.run = async (client, message, args) => {
-    	let WARNING = client.emojis.cache.find(emoji => emoji.id === '778868936874655774')
-    	let CHECK_MARK = client.emojis.cache.find(emoji => emoji.id === '778889804426248194')
-        let STOP = client.emojis.cache.find(emoji => emoji.id === '780290077237968907')
-        let PLAY = client.emojis.cache.find(emoji => emoji.id === '778881750029434905')
         const permissions = message.channel.permissionsFor(message.client.user);
         if (!permissions.has(["MANAGE_MESSAGES", "ADD_REACTIONS"]))
-            return sendError(`${WARNING}Missing permission to manage messages or add reactions`, message.channel);
+            return sendError(`Missing permission to manage messages or add reactions`, message.channel);
 
         const queue = message.client.queue.get(message.guild.id);
-        if (!queue) return sendError(`${WARNING}There is nothing playing in this server.`, message.channel)
+        if (!queue) return sendError(`There is nothing playing in this server.`, message.channel)
 
         let currentPage = 0;
         const embeds = generateQueueEmbed(message, queue.songs);
@@ -24,27 +20,27 @@ module.exports.run = async (client, message, args) => {
         );
 
         try {
-            await queueEmbed.react("780289529785090119");
-            await queueEmbed.react("780290077237968907");
-            await queueEmbed.react("780290625307148329");
+            await queueEmbed.react("⬅️");
+            await queueEmbed.react("🛑");
+            await queueEmbed.react("➡️");
         } catch (error) {
             console.error(error);
             message.channel.send(error.message).catch(console.error);
         }
 
-        const filter = (reaction, user) => ["780289529785090119", "780290077237968907", "780290625307148329"].includes(reaction.emoji.id) && message.author.id === user.id;
+        const filter = (reaction, user) => ["⬅️", "🛑", "➡️"].includes(reaction.emoji.name) && message.author.id === user.id;
         const collector = queueEmbed.createReactionCollector(filter, {
             time: 60000
         });
 
         collector.on("collect", async (reaction, user) => {
             try {
-                if (reaction.emoji.id === "780290625307148329") {
+                if (reaction.emoji.name === "⬅️") {
                     if (currentPage < embeds.length - 1) {
                         currentPage++;
                         queueEmbed.edit(`**\`${currentPage + 1}\`**/**${embeds.length}**`, embeds[currentPage]);
                     }
-                } else if (reaction.emoji.id === "780289529785090119") {
+                } else if (reaction.emoji.id === "➡️") {
                     if (currentPage !== 0) {
                         --currentPage;
                         queueEmbed.edit(`**\`${currentPage + 1}\`**/**${embeds.length}**`, embeds[currentPage]);
@@ -73,7 +69,7 @@ function generateQueueEmbed(message, queue) {
 
         const serverQueue = message.client.queue.get(message.guild.id);
         const embed = new MessageEmbed()
-            .setAuthor("Server Songs Queue", "https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif")
+            .setAuthor("Server Songs Queue", "https://raw.githubusercontent.com/rtgamingwdt/MelloTunes/main/assets/Music.gif")
             .setThumbnail(message.guild.iconURL())
             .setColor("BLUE")
             .setDescription(`${info}`)
