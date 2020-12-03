@@ -1,0 +1,41 @@
+{
+  "name": "MelloTunes",
+  "version": "1.0.0",
+  "description": "Discord Bot made by RT and Mezo.",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "dependencies": {
+    "8ball": "^1.0.6",
+    "@discordjs/opus": "^0.3.2",
+    "axios": "^0.21.0",
+    "canvacord": "^5.0.8",
+    "canvas-senpai": "^1.0.0",
+    "discord-giveaways": "^4.2.1",
+    "discord.js": "^12.3.1",
+    "discord.js-pagination": "^1.0.3",
+    "dotenv": "^8.2.0",
+    "ffmpeg": "0.0.4",
+    "ffmpeg-static": "^4.2.7",
+    "fs": "0.0.1-security",
+    "imageapi.js": "^1.2.1",
+    "lyrics-finder": "^21.4.0",
+    "mongoose": "^5.11.2",
+    "node-opus": "^0.3.3",
+    "novelcovid": "^3.0.0",
+    "npm": "^6.14.9",
+    "opusscript": "^0.0.7",
+    "random-number": "0.0.9",
+    "trivia-api": "^1.0.1",
+    "util": "^0.12.3",
+    "youtube-sr": "^2.0.1",
+    "yt-search": "^2.2.4",
+    "ytdl-core": "^4.1.1",
+    "ytdl-core-discord": "^1.2.4"
+  }
+}
