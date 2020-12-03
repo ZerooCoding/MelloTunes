@@ -8,7 +8,7 @@ module.exports.run = async (client, message, args) => {
         if (!serverQueue) return sendError(`There is nothing playing in this server.`, message.channel);
         let song = serverQueue.songs[0]
         let thing = new MessageEmbed()
-            .setAuthor("Now Playing", "https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif")
+            .setAuthor("Now Playing", "https://raw.githubusercontent.com/rtgamingwdt/MelloTunes/main/assets/Music.gif")
             .setThumbnail(song.img)
             .setColor("BLUE")
             .addField("Name", song.title, true)
