@@ -14,8 +14,8 @@ module.exports.run = async (client, message, args) => {
         .setDescription(pollDescription)
         .setColor('BLUE')
         let msgEmbed = await pollChannel.send(embedPoll);
-    await msgEmbed.react("779636383010127883");
-    await msgEmbed.react("779636462315372566");
+    await msgEmbed.react("👍");
+    await msgEmbed.react("👎");
     }
 
 	module.exports.config = {
