@@ -4,8 +4,6 @@ const {
 const pagination = require('discord.js-pagination');
 
 module.exports.run = async (client, message, args) => {
-        let left = client.emojis.cache.find(emoji => emoji.id === '780289529785090119')
-        let right = client.emojis.cache.find(emoji => emoji.id === '780290625307148329')
         const dev = new MessageEmbed()
         .setTitle('Dev')
         .addField('`.eval <code>`', 'Execute code with one command. [Only RT and Mezo can use this command]')
@@ -71,7 +69,7 @@ module.exports.run = async (client, message, args) => {
             	music
         ]
 
-        const emojiList = ['780289529785090119', '780290625307148329'];
+        const emojiList = ['⏪', '⏩'];
 
         const timeout = '30000';
 
