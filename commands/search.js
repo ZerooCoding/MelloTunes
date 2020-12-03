@@ -10,27 +10,22 @@ const sendError = require("../util/error")
 const fs = require('fs');
 
 module.exports.run = async (client, message, args) => {
-    	let WARNING = client.emojis.cache.find(emoji => emoji.id === '778868936874655774')
-    	let CHECK_MARK = client.emojis.cache.find(emoji => emoji.id === '778889804426248194')
-        let STOP = client.emojis.cache.find(emoji => emoji.id === '780290077237968907')
-        let PLAY = client.emojis.cache.find(emoji => emoji.id === '778881750029434905')
-        let X_MARK = client.emojis.cache.find(emoji => emoji.id === '780288160571457536')
         let channel = message.member.voice.channel;
-        if (!channel) return sendError(`${WARNING}You need to be in a voice channel to play music!`, message.channel);
+        if (!channel) return sendError(`You need to be in a voice channel to play music!`, message.channel);
 
         const permissions = channel.permissionsFor(message.client.user);
-        if (!permissions.has("CONNECT")) return sendError(`${WARNING}I cannot connect to your voice channel, make sure I have the proper permissions!`, message.channel);
-        if (!permissions.has("SPEAK")) return sendError(`${WARNING}I cannot speak in this voice channel, make sure I have the proper permissions!`, message.channel);
+        if (!permissions.has("CONNECT")) return sendError(`I cannot connect to your voice channel, make sure I have the proper permissions!`, message.channel);
+        if (!permissions.has("SPEAK")) return sendError(`I cannot speak in this voice channel, make sure I have the proper permissions!`, message.channel);
 
         var searchString = args.join(" ");
-        if (!searchString) return sendError(`${WARNING}You didn't provide anything for me to search for`, message.channel);
+        if (!searchString) return sendError(`You didn't provide anything for me to search for`, message.channel);
 
         var serverQueue = message.client.queue.get(message.guild.id);
         try {
             var searched = await YouTube.search(searchString, {
                 limit: 10
             });
-            if (searched[0] == undefined) return sendError(`${WARNING}I was unable to find the song on YouTube`, message.channel);
+            if (searched[0] == undefined) return sendError(`I was unable to find the song on YouTube`, message.channel);
             let index = 0;
             let embedPlay = new MessageEmbed()
                 .setColor("BLUE")
@@ -52,7 +47,7 @@ module.exports.run = async (client, message, args) => {
                 return message.channel.send({
                     embed: {
                         color: "RED",
-                        description: `${X_MARK}Nothing has been selected within 20 seconds, the request has been canceled.`
+                        description: `Nothing has been selected within 20 seconds, the request has been canceled.`
                     }
                 });
             }
@@ -64,7 +59,7 @@ module.exports.run = async (client, message, args) => {
             return message.channel.send({
                 embed: {
                     color: "RED",
-                    description: `${X_MARK} **|**  I could not obtain any search results`
+                    description: `**|**  I could not obtain any search results`
                 }
             });
         }
