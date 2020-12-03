@@ -3,8 +3,7 @@ const {
 } = require('discord.js')
 
 module.exports.run = async (client, message, args) => {
-    let CHECK_MARK = client.emojis.cache.find(emoji => emoji.id === '778889804426248194')
-    let channel = client.channels.cache.get('778137776712318996');
+    let channel = client.channels.cache.get('channel-id'); //Replace channel-id with the channel id you want it to send the message to.
     let msg = args.join(" ");
     let embed = new MessageEmbed()
         .setColor("WHITE")
@@ -12,7 +11,7 @@ module.exports.run = async (client, message, args) => {
         .setFooter("Interesting.")
 
     channel.send(embed);
-        message.reply(`Your feedback has been sent${CHECK_MARK}`)
+        message.reply(`Your feedback has been sent.`)
 }
 
 	module.exports.config = {
