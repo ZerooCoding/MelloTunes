@@ -3,7 +3,7 @@ const {
     MessageEmbed 
 } = require('discord.js');
 module.exports.run = async (client, message, args) => {
- if(message.author.id === '709450665696428124' || message.author.id === '347077478726238228') {
+ if(message.author.id === '709450665696428124' || message.author.id === '347077478726238228') { //choose who can use this command, BE CAREFUL WHO YOU LET USE THIS, PEOPLE CAN EXECUTE CODE USING THIS, THEY COULD REMOVE A WHOLE FOLDER IF THEY KNEW WHAT THEY WERE DOING.
 
     const embed = new MessageEmbed().setTitle(`${message.author.tag}'s eval`).setDescription("📥Eval📤").setFooter(`requested by ${message.author.tag}`).addField(
 
