@@ -1,7 +1,6 @@
 const sendError = require("../util/error");
 
 module.exports.run = async (client, message, args) => {
-	message.delete();
     if (!message.member.permissions.has("ADMINISTRATOR")) return;
     let MSG = args.join(' ');
     if (!MSG)
