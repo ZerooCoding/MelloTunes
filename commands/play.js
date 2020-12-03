@@ -9,19 +9,15 @@ const fs = require('fs');
 const sendError = require("../util/error")
 
 module.exports.run = async (client, message, args) => {
-    	let WARNING = client.emojis.cache.find(emoji => emoji.id === '778868936874655774')
-    	let CHECK_MARK = client.emojis.cache.find(emoji => emoji.id === '778889804426248194')
-        let STOP = client.emojis.cache.find(emoji => emoji.id === '780290077237968907')
-        let PLAY = client.emojis.cache.find(emoji => emoji.id === '778881750029434905')
         let channel = message.member.voice.channel;
-        if (!channel) return sendError(`${WARNING}You need to be in a voice channel to play music!`, message.channel);
+        if (!channel) return sendError(`You need to be in a voice channel to play music!`, message.channel);
 
         const permissions = channel.permissionsFor(message.client.user);
-        if (!permissions.has("CONNECT")) return sendError(`${WARNING}I cannot connect to your voice channel, make sure I have the proper permissions!`, message.channel);
-        if (!permissions.has("SPEAK")) return sendError(`${WARNING}I cannot speak in this voice channel, make sure I have the proper permissions!`, message.channel);
+        if (!permissions.has("CONNECT")) return sendError(`I cannot connect to your voice channel, make sure I have the proper permissions!`, message.channel);
+        if (!permissions.has("SPEAK")) return sendError(`I cannot speak in this voice channel, make sure I have the proper permissions!`, message.channel);
 
         var searchString = args.join(" ");
-        if (!searchString) return sendError(`${WARNING}You didn't poivide want i want to play`, message.channel);
+        if (!searchString) return sendError(`You didn't poivide want i want to play`, message.channel);
         const url = args[0] ? args[0].replace(/<(.+)>/g, "$1") : "";
         var serverQueue = message.client.queue.get(message.guild.id);
 
@@ -30,7 +26,7 @@ module.exports.run = async (client, message, args) => {
         if (url.match(/^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi)) {
             try {
                 songInfo = await ytdl.getInfo(url)
-                if (!songInfo) return sendError(`${WARNING}I was unable to find the song on YouTube`, message.channel);
+                if (!songInfo) return sendError(`I was unable to find the song on YouTube`, message.channel);
                 song = {
                     id: songInfo.videoDetails.videoId,
                     title: songInfo.videoDetails.title,
@@ -50,7 +46,7 @@ module.exports.run = async (client, message, args) => {
         } else {
             try {
                 var searched = await yts.search(searchString);
-                if (searched.videos.length === 0) return sendError(`${WARNING}I was unable to find the song on YouTube`, message.channel)
+                if (searched.videos.length === 0) return sendError(`I was unable to find the song on YouTube`, message.channel)
 
                 songInfo = searched.videos[0]
                 song = {
@@ -72,7 +68,7 @@ module.exports.run = async (client, message, args) => {
         if (serverQueue) {
             serverQueue.songs.push(song);
             let thing = new MessageEmbed()
-                .setAuthor(`Song has been added to queue`, "https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif")
+                .setAuthor(`Song has been added to queue`, "https://raw.githubusercontent.com/rtgamingwdt/MelloTunes/main/assets/Music.gif")
                 .setThumbnail(song.img)
                 .setColor("YELLOW")
                 .addField("Name", song.title, true)
@@ -96,13 +92,13 @@ module.exports.run = async (client, message, args) => {
 
         const play = async (song) => {
             const queue = message.client.queue.get(message.guild.id);
-            let afk = JSON.parse(fs.readFileSync("./afk.json", "utf8"));
+            let afk = JSON.parse(fs.readFileSync("./24-7.json", "utf8"));
             if (!afk[message.guild.id]) afk[message.guild.id] = {
-                afk: false,
+                24: false,
             };
-            var online = afk[message.guild.id]
+            var online = 24[message.guild.id]
             if (!song) {
-                if (!online.afk) {
+                if (!online.24) {
                     sendError(`${STOP}Leaving the voice channel because I think there are no songs in the queue. If you like the bot stay 24/7 in voice channel do \`.24/7\``, message.channel)
                     message.guild.me.voice.channel.leave(); //If you want your bot stay in vc 24/7 remove this line :D
                     message.client.queue.delete(message.guild.id);
@@ -118,7 +114,7 @@ module.exports.run = async (client, message, args) => {
                         play(queue.songs[0]);
                     }
 
-                    sendError(`${WARNING}An unexpected error has occurred.\nPossible type \`${err}\``, message.channel)
+                    sendError(`An unexpected error has occurred.\nPossible type \`${err}\``, message.channel)
                     return;
                 });
             }
@@ -140,7 +136,7 @@ module.exports.run = async (client, message, args) => {
 
             dispatcher.setVolumeLogarithmic(queue.volume / 100);
             let thing = new MessageEmbed()
-                .setAuthor(`Started Playing Music!`, "https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif")
+                .setAuthor(`Started Playing Music!`, "https://raw.githubusercontent.com/rtgamingwdt/MelloTunes/main/assets/Music.gif")
                 .setThumbnail(song.img)
                 .setColor("BLUE")
                 .addField("Name", song.title, true)
@@ -158,7 +154,7 @@ module.exports.run = async (client, message, args) => {
             console.error(`I could not join the voice channel: ${error}`);
             message.client.queue.delete(message.guild.id);
             await channel.leave();
-            return sendError(`${WARNING}I could not join the voice channel: ${error}`, message.channel);
+            return sendError(`I could not join the voice channel: ${error}`, message.channel);
         }
     }
 
